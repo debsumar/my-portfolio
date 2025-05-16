@@ -1,6 +1,6 @@
 // App.tsx with animations integrated
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Mail, Linkedin, Github, MapPin, Code, Briefcase, Award, Layers } from 'lucide-react';
+import { Menu, X, Mail, Linkedin, Github, MapPin } from 'lucide-react';
 import './App.css';
 import initAllAnimations from './animation'; // Import the animation functions
 
@@ -278,7 +278,7 @@ const App: React.FC = () => {
           <div className="about-col reveal">
             <h3 className="sub-heading">My Skills</h3>
             <div className="skills-grid">
-              {skills.map((skill, index) => (
+              {skills.map((skill) => (
                 <div
                   key={skill}
                   className="skill-item"
