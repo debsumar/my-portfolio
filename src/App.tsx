@@ -470,7 +470,14 @@ const App: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="contact-label">GitHub</h4>
-                  <p className="contact-text">Connect with me on GitHub for code samples</p>
+                  <a
+                    href="https://github.com/debsumar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-link"
+                  >
+                    github.com/debsumar
+                  </a>
                 </div>
               </div>
               <div className="contact-item">
@@ -511,7 +518,9 @@ const App: React.FC = () => {
                 <Mail size={20} />
               </a>
               <a
-                href="#"
+                href="https://github.com/debsumar"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer-link"
               >
                 <Github size={20} />
