@@ -172,7 +172,7 @@ const App: React.FC = () => {
       <nav className="navbar">
         <div className="container navbar-container">
           <div className="navbar-content">
-            <div className="logo">Debanjan Sumar</div>
+            <div className="logo">Debanjan Sumarrr</div>
 
             {/* Desktop Navigation */}
             <div className="nav-links">
