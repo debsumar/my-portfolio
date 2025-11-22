@@ -1,8 +1,9 @@
 // App.tsx with animations integrated
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Mail, Linkedin, Github, MapPin } from 'lucide-react';
+import { Menu, X, Mail, Linkedin, Github, MapPin, Moon, Sun, Monitor } from 'lucide-react';
 import './App.css';
 import initAllAnimations from './animation'; // Import the animation functions
+import { useTheme } from './hooks/useTheme';
 
 // Define types for our state and props
 interface SectionProps {
@@ -39,6 +40,7 @@ interface Experience {
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const { preference, toggleTheme } = useTheme();
 
   // Skills data
   const skills: Skill[] = [
@@ -185,6 +187,14 @@ const App: React.FC = () => {
                   {section}
                 </button>
               ))}
+              <button
+                onClick={toggleTheme}
+                className="nav-link theme-toggle"
+                aria-label="Toggle theme"
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                {preference === 'dark' ? <Moon size={20} /> : preference === 'light' ? <Sun size={20} /> : <Monitor size={20} />}
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -207,6 +217,17 @@ const App: React.FC = () => {
                   {section}
                 </button>
               ))}
+              <button
+                onClick={() => {
+                  toggleTheme();
+                  setMobileMenuOpen(false);
+                }}
+                className="mobile-nav-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              >
+                {preference === 'dark' ? <Moon size={18} /> : preference === 'light' ? <Sun size={18} /> : <Monitor size={18} />}
+                <span style={{ textTransform: 'capitalize' }}>{preference} Theme</span>
+              </button>
             </div>
           )}
         </div>
