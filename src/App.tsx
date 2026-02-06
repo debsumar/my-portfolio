@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import './App.css';
-import { experiences, contact } from './data';
+import { Menu, X, ArrowUpRight, Copy, Check } from 'lucide-react';
+import { experiences, contact, skills } from './data';
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(contact.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -14,12 +20,15 @@ const App: React.FC = () => {
     }
   };
 
+  const marqueeSkills = [...skills, ...skills];
+
   return (
     <div className="app-container">
-      {/* Navigation */}
-      <nav className="navbar">
+      <div className="grain-overlay" aria-hidden="true" />
+
+      <nav className="navbar brutal-card">
         <div className="logo">
-          <div className="logo-icon"></div>
+          <div className="logo-icon" />
           <div className="logo-text">
             <span>Debanjan</span>
             <span>Sumar</span>
@@ -29,76 +38,89 @@ const App: React.FC = () => {
         <div className="nav-links desktop-only">
           <button onClick={() => scrollToSection('work')}>Work</button>
           <button onClick={() => scrollToSection('about')}>About</button>
-          <button onClick={() => scrollToSection('blog')}>Blog</button>
           <button onClick={() => scrollToSection('contact')}>Contact</button>
         </div>
 
+        <p className="status-chip desktop-only">OPEN FOR REMOTE PRODUCT BUILDS</p>
+
         <button
-          className="mobile-menu-btn"
+          className="mobile-menu-btn brutal-button"
+          aria-label="Toggle menu"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="mobile-menu">
-          <button onClick={() => scrollToSection('work')}>Work</button>
-          <button onClick={() => scrollToSection('about')}>About</button>
-          <button onClick={() => scrollToSection('blog')}>Blog</button>
-          <button onClick={() => scrollToSection('contact')}>Contact</button>
+          <button className="brutal-button" onClick={() => scrollToSection('work')}>Work</button>
+          <button className="brutal-button" onClick={() => scrollToSection('about')}>About</button>
+          <button className="brutal-button" onClick={() => scrollToSection('contact')}>Contact</button>
         </div>
       )}
 
-      {/* Hero Section */}
       <header className="hero-section">
+        <p className="hero-kicker">NEO BRUTALISM PORTFOLIO · 2026 EDITION</p>
         <h1 className="hero-title">
-          FULL STACK <br /> DEVELOPER
+          FULL STACK
+          <br />
+          DEVELOPER
         </h1>
 
         <div className="hero-intro">
-          <div className="intro-col">
+          <div className="intro-col brutal-card">
             <p>
-              I'm currently orchestrating experiences at <strong>Kare4u Healthcare Solutions</strong>,
-              building scalable mobile and web apps.
+              I build high-performance mobile and web experiences at <strong>Kare4u Healthcare Solutions</strong>,
+              shipping polished products from concept to cloud.
             </p>
           </div>
-          <div className="intro-col">
+          <div className="intro-col brutal-card">
             <p>
-              I'm a passionate developer with over 3 years of experience
-              who uses code, data, and thoughtful architecture to create delightful products that scale.
+              3+ years solving real-world product challenges through clean architecture,
+              resilient backend systems, and fast iteration with product teams.
             </p>
           </div>
           <div className="intro-cta">
-            <a href={`mailto:${contact.email}`} className="get-in-touch">
+            <a href={`mailto:${contact.email}`} className="get-in-touch brutal-button">
               GET IN TOUCH <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
+
+        <div className="skill-marquee" aria-label="Skill highlights">
+          <div className="marquee-track">
+            {marqueeSkills.map((skill, index) => (
+              <span key={`${skill}-${index}`} className="skill-pill">{skill}</span>
+            ))}
+          </div>
+        </div>
       </header>
 
-      {/* Showcase Grid Section */}
       <section id="work" className="showcase-section">
-        <div className="grid-background">
-          {/* Vertical Lines */}
-          <div className="grid-line v-line" style={{ left: '10%' }}></div>
-          <div className="grid-line v-line" style={{ left: '30%' }}></div>
-          <div className="grid-line v-line" style={{ left: '50%' }}></div>
-          <div className="grid-line v-line" style={{ left: '70%' }}></div>
-          <div className="grid-line v-line" style={{ left: '90%' }}></div>
+        <div className="grid-background" aria-hidden="true">
+          <div className="grid-line v-line" style={{ left: '10%' }} />
+          <div className="grid-line v-line" style={{ left: '30%' }} />
+          <div className="grid-line v-line" style={{ left: '50%' }} />
+          <div className="grid-line v-line" style={{ left: '70%' }} />
+          <div className="grid-line v-line" style={{ left: '90%' }} />
+          <div className="grid-line h-line" style={{ top: '10%' }} />
+          <div className="grid-line h-line" style={{ top: '30%' }} />
+          <div className="grid-line h-line" style={{ top: '50%' }} />
+          <div className="grid-line h-line" style={{ top: '70%' }} />
+          <div className="grid-line h-line" style={{ top: '90%' }} />
+        </div>
 
-          {/* Horizontal Lines */}
-          <div className="grid-line h-line" style={{ top: '10%' }}></div>
-          <div className="grid-line h-line" style={{ top: '30%' }}></div>
-          <div className="grid-line h-line" style={{ top: '50%' }}></div>
-          <div className="grid-line h-line" style={{ top: '70%' }}></div>
-          <div className="grid-line h-line" style={{ top: '90%' }}></div>
+        <div className="showcase-header">
+          <h2 className="section-title dark-text">BENTO SHOWCASE</h2>
+          <p>
+            Latest design trends, brutal edges, and practical engineering outcomes:
+            apps that look bold and scale without friction.
+          </p>
         </div>
 
         <div className="showcase-content">
-          {/* Central Image */}
-          <div className="central-image-container">
+          <div className="central-image-container brutal-card">
             <img
               src="https://github.com/debsumar.png"
               alt="Debanjan Sumar"
@@ -106,7 +128,6 @@ const App: React.FC = () => {
             />
           </div>
 
-          {/* Stickers */}
           <div className="sticker sticker-circle sticker-cyan pos-1">
             <div className="sticker-content">
               <span>FULL STACK</span>
@@ -159,13 +180,12 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
       <section id="projects" className="content-section dark-bg">
         <div className="container">
           <h2 className="section-title">SELECTED WORKS</h2>
           <div className="projects-grid">
             {experiences[0].projects?.map((project, index) => (
-              <div key={index} className="project-card">
+              <div key={index} className="project-card brutal-card">
                 <div className="project-info">
                   <h3>{project.name}</h3>
                   <p className="project-tech">{project.technologies}</p>
@@ -180,13 +200,12 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
       <section id="about" className="content-section light-bg">
         <div className="container">
           <h2 className="section-title dark-text">EXPERIENCE</h2>
           <div className="experience-list">
             {experiences.map((exp, index) => (
-              <div key={index} className="experience-item">
+              <div key={index} className="experience-item brutal-card">
                 <div className="exp-header">
                   <h3 className="exp-role">{exp.title}</h3>
                   <span className="exp-company">{exp.company}</span>
@@ -203,23 +222,50 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
+
+
       <section id="contact" className="content-section dark-bg contact-section">
         <div className="container">
-          <h2 className="section-title">LET'S TALK</h2>
-          <div className="contact-links">
-            <a href={`mailto:${contact.email}`} className="big-link">
-              {contact.email}
-            </a>
-            <div className="social-links">
-              <a href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
+          <h2 className="section-title">LET&apos;S TALK</h2>
+
+          <div className="contact-grid">
+            <div className="email-primary brutal-card">
+              <span className="email-label">GOT A PROJECT IN MIND?</span>
+              <div className="email-action-row">
+                <a href={`mailto:${contact.email}`} className="email-address">
+                  {contact.email}
+                </a>
+                <button
+                  onClick={copyToClipboard}
+                  className="copy-trigger brutal-button"
+                  aria-label="Copy email"
+                >
+                  {copied ? <Check size={18} /> : <Copy size={18} />}
+                  <span>{copied ? 'COPIED!' : 'COPY'}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="social-bento">
+              <a href={contact.linkedin} target="_blank" rel="noreferrer" className="social-item brutal-card linkedin">
+                <div className="social-info">
+                  <span className="social-label">NETWORKING</span>
+                  <span className="social-value">LINKEDIN</span>
+                </div>
+                <ArrowUpRight size={20} />
+              </a>
+              <a href={contact.github} target="_blank" rel="noreferrer" className="social-item brutal-card github">
+                <div className="social-info">
+                  <span className="social-label">SOURCE CODE</span>
+                  <span className="social-value">GITHUB</span>
+                </div>
+                <ArrowUpRight size={20} />
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer / Additional Content placeholder */}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Debanjan Sumar</p>
       </footer>

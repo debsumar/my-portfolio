@@ -1,45 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root {
-  --bg-color: #050505;
-  --text-color: #ffffff;
-  --accent-color: #ffffff;
-  --grid-color: #333333;
-  --sticker-cyan: #6bf5d6;
-  --sticker-pink: #ff6b9d;
-  --sticker-yellow: #f5d66b;
-  --sticker-orange: #ff9d6b;
-  --sticker-green: #9dff6b;
+  --ink: #131313;
+  --ink-strong: #050505;
+  --paper: #fff7e6;
+  --accent-lime: #f8ed4d;
+  --accent-mint: #85f2c6;
+  --accent-blue: #5ec9ff;
+  --accent-orange: #ff7e53;
+  --accent-pink: #ff8ac3;
+  --text-main: #ffffff;
+  --font-display: 'Archivo Black', 'Arial Black', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --shadow-hard: 10px 10px 0 var(--ink-strong);
+  --shadow-soft: 5px 5px 0 var(--ink-strong);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 * {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
+  line-height: 1.4;
+  color: var(--text-main);
+  background: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 a {
-  text-decoration: none;
   color: inherit;
-}
-
-ul {
-  list-style: none;
 }
 
 button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
+  font: inherit;
   color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
