@@ -571,10 +571,19 @@
   text-transform: uppercase;
 }
 
+.project-desc {
+  margin: 0.2rem 0 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #555;
+}
+
 .project-tech {
   margin: 0 0 0.8rem;
   color: #353535;
   line-height: 1.5;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .project-year {

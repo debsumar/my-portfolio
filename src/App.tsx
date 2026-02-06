@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight, Copy, Check } from 'lucide-react';
-import { experiences, contact, skills } from './data';
+import { experiences, contact, skills, projects } from './data';
 
 const App: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -61,7 +61,7 @@ const App: React.FC = () => {
       )}
 
       <header className="hero-section">
-        <p className="hero-kicker">NEO BRUTALISM PORTFOLIO · 2026 EDITION</p>
+        <p className="hero-kicker">4+ YEARS OF SHIPPING POLISHED SAAS</p>
         <h1 className="hero-title">
           FULL STACK
           <br />
@@ -71,13 +71,13 @@ const App: React.FC = () => {
         <div className="hero-intro">
           <div className="intro-col brutal-card">
             <p>
-              I build high-performance mobile and web experiences at <strong>Kare4u Healthcare Solutions</strong>,
+              I build high-performance mobile and web experiences at <strong>ActivityPro</strong>,
               shipping polished products from concept to cloud.
             </p>
           </div>
           <div className="intro-col brutal-card">
             <p>
-              3+ years solving real-world product challenges through clean architecture,
+              4+ years solving real-world product challenges through clean architecture,
               resilient backend systems, and fast iteration with product teams.
             </p>
           </div>
@@ -112,10 +112,10 @@ const App: React.FC = () => {
         </div>
 
         <div className="showcase-header">
-          <h2 className="section-title dark-text">BENTO SHOWCASE</h2>
+          <h2 className="section-title dark-text">INTERESTS</h2>
           <p>
-            Latest design trends, brutal edges, and practical engineering outcomes:
-            apps that look bold and scale without friction.
+            I specialize in building high-availability systems that scale. From engineering server-driven UI engines to
+            integrating LLMs via RAG and AWS Bedrock, I focus on products that solve complex challenges with 99.9% uptime.
           </p>
         </div>
 
@@ -130,37 +130,37 @@ const App: React.FC = () => {
 
           <div className="sticker sticker-circle sticker-cyan pos-1">
             <div className="sticker-content">
-              <span>FULL STACK</span>
-              <strong>DEVELOPMENT</strong>
-              <span className="small">WEB & MOBILE</span>
+              <span>ENGINEERING</span>
+              <strong>SERVER DRIVEN</strong>
+              <span className="small">UI ENGINES</span>
             </div>
           </div>
 
           <div className="sticker sticker-rect sticker-pink pos-2">
             <div className="sticker-content">
-              <strong>FLUTTER</strong>
-              <span>EXPERT</span>
+              <strong>LLM & RAG</strong>
+              <span>INTEGRATION</span>
             </div>
           </div>
 
           <div className="sticker sticker-rect sticker-yellow pos-3">
             <div className="sticker-content">
-              <strong>AWS CLOUD</strong>
-              <span>ARCHITECTURE</span>
+              <strong>99.9% UPTIME</strong>
+              <span>SAAS SYSTEMS</span>
             </div>
           </div>
 
           <div className="sticker sticker-rect sticker-orange pos-4">
             <div className="sticker-content">
-              <strong>BACKEND</strong>
-              <span>SYSTEMS</span>
+              <strong>FLUTTER ARCHITECT</strong>
+              <span>50K+ USERS</span>
             </div>
           </div>
 
           <div className="sticker sticker-rect sticker-cyan-rect pos-5">
             <div className="sticker-content">
-              <strong>REACT & NODE</strong>
-              <span>ECOSYSTEM</span>
+              <strong>HIGH-PERFORMANCE</strong>
+              <span>FLUTTER APPS</span>
             </div>
           </div>
 
@@ -170,7 +170,7 @@ const App: React.FC = () => {
                 <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
                 <text>
                   <textPath href="#curve" fill="currentColor">
-                    CLEAN CODE • SCALABLE •
+                    SCALABLE APIS • REAL TIME •
                   </textPath>
                 </text>
               </svg>
@@ -184,17 +184,25 @@ const App: React.FC = () => {
         <div className="container">
           <h2 className="section-title">SELECTED WORKS</h2>
           <div className="projects-grid">
-            {experiences[0].projects?.map((project, index) => (
-              <div key={index} className="project-card brutal-card">
+            {projects.map((project, index) => (
+              <a
+                key={index}
+                href={project.link || '#'}
+                target={project.link ? "_blank" : "_self"}
+                rel="noreferrer"
+                className="project-card brutal-card"
+                style={{ textDecoration: 'none' }}
+              >
                 <div className="project-info">
-                  <h3>{project.name}</h3>
-                  <p className="project-tech">{project.technologies}</p>
-                  <span className="project-year">{project.period}</span>
+                  <h3>{project.title}</h3>
+                  <p className="project-desc">{project.description}</p>
+                  <p className="project-tech">{project.technologies.join(', ')}</p>
+                  <span className="project-year">{project.date}</span>
                 </div>
                 <div className="project-arrow">
                   <ArrowUpRight size={24} />
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
