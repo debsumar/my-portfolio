@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, ArrowUpRight, Copy, Check } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Copy, Check, Zap } from 'lucide-react';
 import { experiences, contact, skills, projects } from './data';
 
 const App: React.FC = () => {
@@ -28,7 +28,9 @@ const App: React.FC = () => {
 
       <nav className="navbar brutal-card">
         <div className="logo">
-          <div className="logo-icon" />
+          <div className="logo-icon">
+            <Zap size={20} fill="currentColor" />
+          </div>
           <div className="logo-text">
             <span>Debanjan</span>
             <span>Sumar</span>

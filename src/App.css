@@ -75,12 +75,23 @@
 }
 
 .logo-icon {
-  width: 48px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
   border: 3px solid var(--ink-strong);
-  border-radius: 18px 3px 14px 3px;
-  background: linear-gradient(120deg, var(--accent-blue), var(--accent-mint));
-  box-shadow: 3px 3px 0 var(--ink-strong);
+  border-radius: 12px;
+  background: var(--accent-lime);
+  box-shadow: 4px 4px 0 var(--ink-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-strong);
+  transition: all 0.2s ease;
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(-8deg) scale(1.1);
+  background: var(--accent-blue);
+  color: #fff;
 }
 
 .logo-text {
