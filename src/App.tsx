@@ -24,9 +24,10 @@ const App: React.FC = () => {
 
   return (
     <div className="app-container">
+
       <div className="grain-overlay" aria-hidden="true" />
 
-      <nav className="navbar brutal-card">
+      <nav className="navbar nav-motion">
         <div className="logo">
           <div className="logo-icon">
             <Zap size={20} fill="currentColor" />
@@ -99,9 +100,9 @@ const App: React.FC = () => {
         </div>
       </header >
 
-      <section id="work" className="content-section dark-bg">
+      <section id="work" className="content-section light-bg">
         <div className="container">
-          <h2 className="section-title">MY WORKS</h2>
+          <h2 className="section-title dark-text">MY WORKS</h2>
           <div className="projects-grid">
             {projects.map((project, index) => {
               const accentClasses = ['accent-lime', 'accent-blue', 'accent-pink', 'accent-orange'];
