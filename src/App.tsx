@@ -69,22 +69,22 @@ const App: React.FC = () => {
         </h1>
 
         <div className="hero-intro">
-          <div className="intro-col brutal-card">
-            <p>
-              I build high-performance mobile and web experiences at <strong>ActivityPro</strong>,
-              shipping polished products from concept to cloud.
-            </p>
-          </div>
-          <div className="intro-col brutal-card">
-            <p>
-              4+ years solving real-world product challenges through clean architecture,
-              resilient backend systems, and fast iteration with product teams.
-            </p>
-          </div>
-          <div className="intro-cta">
-            <a href={`mailto:${contact.email}`} className="get-in-touch brutal-button">
-              GET IN TOUCH <ArrowUpRight size={16} />
-            </a>
+          <div className="bento-intro-v1">
+            <div className="bento-main-bio brutal-card">
+              <p>
+                I engineer high-performance mobile and web experiences at <strong>ActivityPro</strong>,
+                specializing in the intersection of scalable cloud backends and fluid mobile journeys.
+              </p>
+            </div>
+            <div className="bento-sidebar">
+              <div className="metric-box brutal-card">
+                <span className="metric-value">50K+</span>
+                <span className="metric-label">App Users</span>
+              </div>
+              <a href="#contact" className="bento-cta brutal-card">
+                GET IN TOUCH <ArrowUpRight size={24} />
+              </a>
+            </div>
           </div>
         </div>
 
@@ -95,9 +95,60 @@ const App: React.FC = () => {
             ))}
           </div>
         </div>
-      </header>
+      </header >
 
-      <section id="work" className="showcase-section">
+      <section id="work" className="content-section dark-bg">
+        <div className="container">
+          <h2 className="section-title">MY WORKS</h2>
+          <div className="projects-grid">
+            {projects.map((project, index) => {
+              const accentClasses = ['accent-lime', 'accent-blue', 'accent-pink', 'accent-orange'];
+              const accentClass = accentClasses[index % accentClasses.length];
+
+              return (
+                <a
+                  key={index}
+                  href={project.link || '#'}
+                  target={project.link ? "_blank" : "_blank"}
+                  rel="noreferrer"
+                  className={`project-card brutal-card ${accentClass}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="project-accent-bar" />
+                  <div className="project-card-body">
+                    <div className="project-info">
+                      <div className="project-meta-top">
+                        <span className="project-category">{project.category}</span>
+                        <span className="project-status-badge">LIVE ⚡</span>
+                      </div>
+                      <h3>{project.title}</h3>
+                      <p className="project-desc">{project.description}</p>
+
+                      <div className="project-tech-tags">
+                        {project.technologies.slice(0, 4).map((tech, i) => (
+                          <span key={i} className="tech-tag">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="project-footer">
+                      <span className="project-year">{project.date}</span>
+                      <div className="project-arrow-box">
+                        <span className="view-text">VIEW CASE</span>
+                        <div className="project-arrow">
+                          <ArrowUpRight size={18} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section id="interests" className="showcase-section">
         <div className="grid-background" aria-hidden="true">
           <div className="grid-line v-line" style={{ left: '10%' }} />
           <div className="grid-line v-line" style={{ left: '30%' }} />
@@ -180,57 +231,6 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      <section id="projects" className="content-section dark-bg">
-        <div className="container">
-          <h2 className="section-title">SELECTED WORKS</h2>
-          <div className="projects-grid">
-            {projects.map((project, index) => {
-              const accentClasses = ['accent-lime', 'accent-blue', 'accent-pink', 'accent-orange'];
-              const accentClass = accentClasses[index % accentClasses.length];
-
-              return (
-                <a
-                  key={index}
-                  href={project.link || '#'}
-                  target={project.link ? "_blank" : "_blank"}
-                  rel="noreferrer"
-                  className={`project-card brutal-card ${accentClass}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <div className="project-accent-bar" />
-                  <div className="project-card-body">
-                    <div className="project-info">
-                      <div className="project-meta-top">
-                        <span className="project-category">{project.category}</span>
-                        <span className="project-status-badge">LIVE ⚡</span>
-                      </div>
-                      <h3>{project.title}</h3>
-                      <p className="project-desc">{project.description}</p>
-
-                      <div className="project-tech-tags">
-                        {project.technologies.slice(0, 4).map((tech, i) => (
-                          <span key={i} className="tech-tag">{tech}</span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="project-footer">
-                      <span className="project-year">{project.date}</span>
-                      <div className="project-arrow-box">
-                        <span className="view-text">VIEW CASE</span>
-                        <div className="project-arrow">
-                          <ArrowUpRight size={18} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       <section id="about" className="content-section light-bg">
         <div className="container">
           <h2 className="section-title dark-text">EXPERIENCE</h2>
@@ -305,7 +305,7 @@ const App: React.FC = () => {
       <footer className="footer">
         <p>© {new Date().getFullYear()} Debanjan Sumar</p>
       </footer>
-    </div>
+    </div >
   );
 };
 
