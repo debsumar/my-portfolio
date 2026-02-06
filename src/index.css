@@ -1,139 +1,45 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@500;700&display=swap');
 
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f4f4f5;
-  --text-primary: #18181b;
-  --text-secondary: #71717a;
-  --accent-primary: #16a34a; /* Green-600 for light mode contrast */
-  --accent-hover: #15803d;
-  --border-color: #e4e4e7;
-  
-  /* Scrollbar colors */
-  --scrollbar-track: #f4f4f5;
-  --scrollbar-thumb: #d4d4d8;
-  --scrollbar-thumb-hover: #a1a1aa;
+  --bg-color: #050505;
+  --text-color: #ffffff;
+  --accent-color: #ffffff;
+  --grid-color: #333333;
+  --sticker-cyan: #6bf5d6;
+  --sticker-pink: #ff6b9d;
+  --sticker-yellow: #f5d66b;
+  --sticker-orange: #ff9d6b;
+  --sticker-green: #9dff6b;
 }
 
-.dark {
-  --bg-primary: #0a0a0a; /* Very dark grey/black */
-  --bg-secondary: #171717;
-  --text-primary: #ededed;
-  --text-secondary: #a1a1aa;
-  --accent-primary: #39ff14; /* Neon Green */
-  --accent-hover: #2ecc71;
-  --border-color: #262626;
-  
-  /* Scrollbar colors for dark mode */
-  --scrollbar-track: #171717;
-  --scrollbar-thumb: #3f3f46;
-  --scrollbar-thumb-hover: #52525b;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* ============================================
-   Custom Scrollbar Styles
-   ============================================ */
-
-/* Webkit browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: 10px;
+ul {
+  list-style: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 10px;
-  border: 2px solid var(--scrollbar-track);
-  transition: background 0.3s ease, border 0.3s ease;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-  border-color: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: var(--accent-primary);
-}
-
-/* Thin scrollbar variant for smaller areas */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  border: 1px solid var(--scrollbar-track);
-}
-
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-
-/* ============================================
-   Keyframe Animations
-   ============================================ */
-
-/* Neon animation for Debanjan */
-/* Subtle visible glow for debanjan - Light mode */
-@keyframes neonPulse {
-  0%, 100% { text-shadow: 0 0 3px #ff00ff, 0 0 8px rgba(255, 0, 255, 0.1); }
-  50% { text-shadow: 0 0 5px #ff00ff, 0 0 12px rgba(255, 0, 255, 0.1); }
-}
-
-/* Brighter glow for dark mode */
-@keyframes neonPulseDark {
-  0%, 100% { text-shadow: 0 0 4px #ff00ff, 0 0 10px rgba(255, 0, 255, 0.3), 0 0 15px rgba(255, 0, 255, 0.1); }
-  50% { text-shadow: 0 0 6px #ff00ff, 0 0 14px rgba(255, 0, 255, 0.4), 0 0 20px rgba(255, 0, 255, 0.15); }
-}
-
-.animate-neon {
-  animation: neonPulse 3s infinite ease-in-out;
-}
-
-.dark .animate-neon {
-  animation: neonPulseDark 3s infinite ease-in-out;
-}
-
-/* Pulse animation for micro-interactions */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* Smooth float animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Shimmer animation */
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-shimmer {
-  animation: shimmer 2s linear infinite;
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
 }

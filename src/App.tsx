@@ -1,557 +1,227 @@
-// App.tsx with animations integrated
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Mail, Linkedin, Github, MapPin, Moon, Sun, Monitor } from 'lucide-react';
+import React, { useState } from 'react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import './App.css';
-import initAllAnimations from './animation'; // Import the animation functions
-import { useTheme } from './hooks/useTheme';
-
-// Define types for our state and props
-interface SectionProps {
-  id: string;
-  title: string;
-  children: React.ReactNode;
-}
-
-// Skills type
-type Skill = string;
-type Interest = string;
-
-// Project type
-interface Project {
-  title: string;
-  date: string;
-  description: string;
-  technologies: string[];
-}
-
-// Experience type
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  description: string[];
-  projects?: {
-    name: string;
-    period: string;
-    technologies: string;
-  }[];
-}
+import { experiences, contact } from './data';
 
 const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const { preference, toggleTheme } = useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Skills data
-  const skills: Skill[] = [
-    'Flutter', 'Node', 'Ionic', 'JavaScript', 'NestJS', 'Git',
-    'TypeORM', 'AWS Cloud', 'SQL', 'LLD', 'Docker', 'Dart',
-    'TypeScript', 'MCP', 'iOS/Android'
-  ];
-
-  // Interests data
-  const interests: Interest[] = ['Responsive Design', 'Clean Architecture', 'Generative AI'];
-
-  // Projects data
-  const projects: Project[] = [
-    {
-      title: 'Random Lottie Generator',
-      date: 'March 2021',
-      description: 'Flutter app that displays dynamic animations pre-page load; enhanced UI engagement.',
-      technologies: ['Flutter', 'Lottie', 'Animation']
-    },
-    {
-      title: 'MPin',
-      date: 'January 2021',
-      description: 'Custom lock screen with Flutter to demonstrate user interaction security and smooth UX.',
-      technologies: ['Flutter', 'Security', 'UX Design']
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMobileMenuOpen(false);
     }
-  ];
-
-  // Experience data
-  const experiences: Experience[] = [
-    {
-      title: 'Software Engineer',
-      company: 'Kare4u Healthcare Solutions Pvt Ltd.',
-      period: '2021 - Present',
-      description: [
-        'Mobile App Development across multiple platforms for different clients.',
-        'Built scalable backend APIs using NestJS, PostgreSQL & GraphQL; deployed on AWS Lambda & ECS.',
-        'Engineered server-driven UI system in Flutter, enabling real-time dynamic screens across apps.',
-        'Developed high-performance Nest APIs, utilizing Type ORM and PostgreSQL, with GraphQL and REST.',
-        'Developed seamless real-time chat across three apps using Ionic, Firebase, Flutter for enhancing user engagement.'
-      ],
-      projects: [
-        {
-          name: 'ActivityPro',
-          period: '2022-till date',
-          technologies: 'Flutter, Ionic, TypeScript, AWS Cloud, NestJS'
-        },
-        {
-          name: 'One Wellbeing',
-          period: '2023',
-          technologies: 'Flutter, REST, Azure'
-        },
-        {
-          name: 'Ownlife',
-          period: '2021',
-          technologies: 'Flutter'
-        },
-        {
-          name: 'Sitemaster',
-          period: '2021',
-          technologies: 'Flutter, NodeJS, AWS Cloud'
-        }
-      ]
-    },
-    {
-      title: 'Intern',
-      company: 'Kare4u Healthcare Solutions Pvt Ltd.',
-      period: '2020 - 2021',
-      description: [
-        'Platform enhancement: Created and integrated GraphQL APIs into the app (Sports Club Activity Management app)',
-        'Integrated Lottie animations for a more engaging app interface.',
-        'Developed UI using Ionic and Flutter as per the UX provided by the business team'
-      ]
-    }
-  ];
-
-  // Initialize animations and handle scroll section updates
-  useEffect(() => {
-    // Initialize all animations
-    initAllAnimations();
-
-    // Track active section on scroll
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + 100;
-
-      sections.forEach(section => {
-        const element = document.getElementById(section);
-        if (!element) return;
-
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-
-        if (
-          scrollPosition >= offsetTop &&
-          scrollPosition < offsetTop + offsetHeight
-        ) {
-          setActiveSection(section);
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string): void => {
-    setActiveSection(sectionId);
-    const section = document.getElementById(sectionId);
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-    setMobileMenuOpen(false);
   };
 
-  // Section component to keep consistent styling
-  const Section: React.FC<SectionProps> = ({ id, title, children }) => (
-    <section id={id} className={`section ${id === 'experience' || id === 'projects' ? 'section-alt' : ''}`}>
-      <div className="container">
-        <h2 className="section-title">{title}</h2>
-        {children}
-      </div>
-    </section>
-  );
-
   return (
-    <div className="app">
+    <div className="app-container">
       {/* Navigation */}
       <nav className="navbar">
-        <div className="container navbar-container">
-          <div className="navbar-content">
-            <div className="logo">Debanjan Sumar</div>
-
-            {/* Desktop Navigation */}
-            <div className="nav-links">
-              {['home', 'about', 'experience', 'projects', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`nav-link ${activeSection === section ? 'active' : ''}`}
-                >
-                  {section}
-                </button>
-              ))}
-              <button
-                onClick={toggleTheme}
-                className="nav-link theme-toggle"
-                aria-label="Toggle theme"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                {preference === 'dark' ? <Moon size={20} /> : preference === 'light' ? <Sun size={20} /> : <Monitor size={20} />}
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="mobile-menu-btn">
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
+        <div className="logo">
+          <div className="logo-icon"></div>
+          <div className="logo-text">
+            <span>Debanjan</span>
+            <span>Sumar</span>
           </div>
-
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="mobile-menu">
-              {['home', 'about', 'experience', 'projects', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`mobile-nav-link ${activeSection === section ? 'active' : ''}`}
-                >
-                  {section}
-                </button>
-              ))}
-              <button
-                onClick={() => {
-                  toggleTheme();
-                  setMobileMenuOpen(false);
-                }}
-                className="mobile-nav-link"
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-              >
-                {preference === 'dark' ? <Moon size={18} /> : preference === 'light' ? <Sun size={18} /> : <Monitor size={18} />}
-                <span style={{ textTransform: 'capitalize' }}>{preference} Theme</span>
-              </button>
-            </div>
-          )}
         </div>
+
+        <div className="nav-links desktop-only">
+          <button onClick={() => scrollToSection('work')}>Work</button>
+          <button onClick={() => scrollToSection('about')}>About</button>
+          <button onClick={() => scrollToSection('blog')}>Blog</button>
+          <button onClick={() => scrollToSection('contact')}>Contact</button>
+        </div>
+
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X /> : <Menu />}
+        </button>
       </nav>
 
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="mobile-menu">
+          <button onClick={() => scrollToSection('work')}>Work</button>
+          <button onClick={() => scrollToSection('about')}>About</button>
+          <button onClick={() => scrollToSection('blog')}>Blog</button>
+          <button onClick={() => scrollToSection('contact')}>Contact</button>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="container hero-container">
-          <div className="hero-content">
-            <h1 className="hero-title reveal">
-              Hi, I'm <span className="accent">Debanjan Sumar</span>
-            </h1>
-            <h2 className="hero-subtitle reveal">
-              Full Stack Developer
-            </h2>
-            <p className="hero-description reveal">
-              Results-oriented developer with 3+ years of experience building scalable,
-              cross-platform mobile and web apps using Flutter, Node, and AWS.
+      <header className="hero-section">
+        <h1 className="hero-title">
+          FULL STACK <br /> DEVELOPER
+        </h1>
+
+        <div className="hero-intro">
+          <div className="intro-col">
+            <p>
+              I'm currently orchestrating experiences at <strong>Kare4u Healthcare Solutions</strong>,
+              building scalable mobile and web apps.
             </p>
-            <div className="hero-buttons reveal">
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="btn btn-primary"
-              >
-                Contact Me
-              </button>
-              <button
-                onClick={() => scrollToSection('projects')}
-                className="btn btn-secondary"
-              >
-                View Projects
-              </button>
-            </div>
           </div>
-          <div className="hero-image">
+          <div className="intro-col">
+            <p>
+              I'm a passionate developer with over 3 years of experience
+              who uses code, data, and thoughtful architecture to create delightful products that scale.
+            </p>
+          </div>
+          <div className="intro-cta">
+            <a href={`mailto:${contact.email}`} className="get-in-touch">
+              GET IN TOUCH <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* Showcase Grid Section */}
+      <section id="work" className="showcase-section">
+        <div className="grid-background">
+          {/* Vertical Lines */}
+          <div className="grid-line v-line" style={{ left: '10%' }}></div>
+          <div className="grid-line v-line" style={{ left: '30%' }}></div>
+          <div className="grid-line v-line" style={{ left: '50%' }}></div>
+          <div className="grid-line v-line" style={{ left: '70%' }}></div>
+          <div className="grid-line v-line" style={{ left: '90%' }}></div>
+
+          {/* Horizontal Lines */}
+          <div className="grid-line h-line" style={{ top: '10%' }}></div>
+          <div className="grid-line h-line" style={{ top: '30%' }}></div>
+          <div className="grid-line h-line" style={{ top: '50%' }}></div>
+          <div className="grid-line h-line" style={{ top: '70%' }}></div>
+          <div className="grid-line h-line" style={{ top: '90%' }}></div>
+        </div>
+
+        <div className="showcase-content">
+          {/* Central Image */}
+          <div className="central-image-container">
             <img
               src="https://github.com/debsumar.png"
-              alt="Debanjan Sumar GitHub Avatar"
-              className="avatar"
-              style={{ width: 400, height: 400, borderRadius: '50%', objectFit: 'cover', border: '4px solid #4f46e5', background: '#fff' }}
+              alt="Debanjan Sumar"
+              className="central-image"
             />
           </div>
-        </div>
-      </section>
 
-      {/* About Section */}
-      <Section id="about" title="About Me">
-        <div className="about-grid">
-          <div className="about-col reveal">
-            <h3 className="sub-heading">Who I Am</h3>
-            <p className="text">
-              I'm a passionate Full Stack Developer based in Bhubaneswar, Odisha, with over 3 years of professional
-              experience. I specialize in building scalable, cross-platform mobile and web applications
-              that deliver exceptional user experiences.
-            </p>
-            <p className="text">
-              My expertise lies in server-driven UI systems, real-time features, and cloud-native deployments.
-              I have successfully delivered SaaS platforms used by over 100 customers.
-            </p>
-            <div className="languages">
-              <h3 className="sub-heading">Languages</h3>
-              <div className="lang-list">
-                <p className="text">English (Fluent)</p>
-                <p className="text">Hindi (Proficient)</p>
-                <p className="text">Bengali (Native)</p>
-              </div>
+          {/* Stickers */}
+          <div className="sticker sticker-circle sticker-cyan pos-1">
+            <div className="sticker-content">
+              <span>FULL STACK</span>
+              <strong>DEVELOPMENT</strong>
+              <span className="small">WEB & MOBILE</span>
             </div>
           </div>
-          <div className="about-col reveal">
-            <h3 className="sub-heading">My Skills</h3>
-            <div className="skills-grid">
-              {skills.map((skill) => (
-                <div
-                  key={skill}
-                  className="skill-item"
-                >
-                  {skill}
-                </div>
-              ))}
-            </div>
-            <div className="interests">
-              <h3 className="sub-heading">Interests</h3>
-              <div className="interests-list">
-                {interests.map((interest) => (
-                  <span key={interest} className="interest-tag">
-                    {interest}
-                  </span>
-                ))}
-              </div>
+
+          <div className="sticker sticker-rect sticker-pink pos-2">
+            <div className="sticker-content">
+              <strong>FLUTTER</strong>
+              <span>EXPERT</span>
             </div>
           </div>
-        </div>
-      </Section>
 
-      {/* Experience Section */}
-      <Section id="experience" title="Professional Experience">
-        <div className="experience-list">
-          {experiences.map((experience, index) => (
-            <div key={index} className="experience-card reveal">
-              <div className="experience-header">
-                <div>
-                  <h3 className="experience-title">{experience.title}</h3>
-                  <p className="experience-company">{experience.company}</p>
-                </div>
-                <div className="experience-period">
-                  <span className="period-tag">
-                    {experience.period}
-                  </span>
-                </div>
-              </div>
-              <ul className="experience-description">
-                {experience.description.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-              {experience.projects && (
-                <div className="key-projects">
-                  <h4 className="projects-heading">Key Projects:</h4>
-                  <div className="projects-list">
-                    {experience.projects.map((project, i) => (
-                      <div key={i} className="project-item">
-                        <p className="project-name">{project.name} ({project.period})</p>
-                        <p className="project-tech">{project.technologies}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+          <div className="sticker sticker-rect sticker-yellow pos-3">
+            <div className="sticker-content">
+              <strong>AWS CLOUD</strong>
+              <span>ARCHITECTURE</span>
             </div>
-          ))}
-        </div>
-      </Section>
+          </div>
 
-      {/* Education Section */}
-      <section className="section">
-        <div className="container">
-          <h2 className="section-title">Education</h2>
-          <div className="education-card reveal">
-            <div className="education-header">
-              <div>
-                <h3 className="education-degree">B. Tech in Computer Science Engineering</h3>
-                <p className="education-school">Lovely Professional University</p>
-              </div>
-              <div>
-                <span className="period-tag">
-                  2017 - 2021
-                </span>
-              </div>
+          <div className="sticker sticker-rect sticker-orange pos-4">
+            <div className="sticker-content">
+              <strong>BACKEND</strong>
+              <span>SYSTEMS</span>
             </div>
-            <p className="education-grade">1st Class</p>
+          </div>
+
+          <div className="sticker sticker-rect sticker-cyan-rect pos-5">
+            <div className="sticker-content">
+              <strong>REACT & NODE</strong>
+              <span>ECOSYSTEM</span>
+            </div>
+          </div>
+
+          <div className="sticker sticker-circle sticker-green pos-6">
+            <div className="sticker-content circular-text">
+              <svg viewBox="0 0 100 100" width="100" height="100">
+                <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
+                <text>
+                  <textPath href="#curve" fill="currentColor">
+                    CLEAN CODE • SCALABLE •
+                  </textPath>
+                </text>
+              </svg>
+              <div className="center-icon">⚡</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <Section id="projects" title="Personal Projects">
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="project-card reveal">
-              <h3 className="project-title">{project.title}</h3>
-              <div className="project-date">{project.date}</div>
-              <p className="project-description">
-                {project.description}
-              </p>
-              <div className="tech-tags">
-                {project.technologies.map((tech, i) => (
-                  <span key={i} className="tech-tag">
-                    {tech}
-                  </span>
-                ))}
+      <section id="projects" className="content-section dark-bg">
+        <div className="container">
+          <h2 className="section-title">SELECTED WORKS</h2>
+          <div className="projects-grid">
+            {experiences[0].projects?.map((project, index) => (
+              <div key={index} className="project-card">
+                <div className="project-info">
+                  <h3>{project.name}</h3>
+                  <p className="project-tech">{project.technologies}</p>
+                  <span className="project-year">{project.period}</span>
+                </div>
+                <div className="project-arrow">
+                  <ArrowUpRight size={24} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
+
+      {/* Experience Section */}
+      <section id="about" className="content-section light-bg">
+        <div className="container">
+          <h2 className="section-title dark-text">EXPERIENCE</h2>
+          <div className="experience-list">
+            {experiences.map((exp, index) => (
+              <div key={index} className="experience-item">
+                <div className="exp-header">
+                  <h3 className="exp-role">{exp.title}</h3>
+                  <span className="exp-company">{exp.company}</span>
+                  <span className="exp-period">{exp.period}</span>
+                </div>
+                <ul className="exp-desc">
+                  {exp.description.map((desc, i) => (
+                    <li key={i}>{desc}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section */}
-      <Section id="contact" title="Contact Me">
-        <div className="contact-grid">
-          <div className="contact-form-container reveal">
-            <h3 className="sub-heading">Get In Touch</h3>
-            <form
-              name="contact"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              className="contact-form"
-            >
-              <input type="hidden" name="form-name" value="contact" />
-              <p className="hidden">
-                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-              </p>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Your Email"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  placeholder="Your Message"
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary btn-full">
-                Send Message
-              </button>
-            </form>
-          </div>
-          <div className="contact-info reveal">
-            <h3 className="sub-heading">Contact Information</h3>
-            <div className="contact-list">
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <Mail size={24} />
-                </div>
-                <div>
-                  <h4 className="contact-label">Email</h4>
-                  <a href="mailto:junesumar0106@gmail.com" className="contact-link">
-                    junesumar0106@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <Linkedin size={24} />
-                </div>
-                <div>
-                  <h4 className="contact-label">LinkedIn</h4>
-                  <a
-                    href="https://www.linkedin.com/in/debsumar/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-link"
-                  >
-                    linkedin.com/in/debsumar
-                  </a>
-                </div>
-              </div>
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <Github size={24} />
-                </div>
-                <div>
-                  <h4 className="contact-label">GitHub</h4>
-                  <a
-                    href="https://github.com/debsumar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-link"
-                  >
-                    github.com/debsumar
-                  </a>
-                </div>
-              </div>
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <MapPin size={24} />
-                </div>
-                <div>
-                  <h4 className="contact-label">Location</h4>
-                  <p className="contact-text">Bhubaneswar, Odisha, India</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* Footer */}
-      <footer className="footer">
+      <section id="contact" className="content-section dark-bg contact-section">
         <div className="container">
-          <div className="footer-content">
-            <div className="footer-info">
-              <div className="footer-logo">Debanjan Sumar</div>
-              <p className="footer-tagline">Full Stack Developer</p>
+          <h2 className="section-title">LET'S TALK</h2>
+          <div className="contact-links">
+            <a href={`mailto:${contact.email}`} className="big-link">
+              {contact.email}
+            </a>
+            <div className="social-links">
+              <a href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href={contact.github} target="_blank" rel="noreferrer">GitHub</a>
             </div>
-            <div className="footer-links">
-              <a
-                href="https://www.linkedin.com/in/debsumar/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="mailto:junesumar0106@gmail.com"
-                className="footer-link"
-              >
-                <Mail size={20} />
-              </a>
-              <a
-                href="https://github.com/debsumar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link"
-              >
-                <Github size={20} />
-              </a>
-            </div>
-          </div>
-          <div className="footer-copyright">
-            © {new Date().getFullYear()} Debanjan Sumar. All rights reserved.
           </div>
         </div>
+      </section>
+
+      {/* Footer / Additional Content placeholder */}
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} Debanjan Sumar</p>
       </footer>
     </div>
   );
