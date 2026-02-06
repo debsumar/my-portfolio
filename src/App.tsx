@@ -20,7 +20,6 @@ const App: React.FC = () => {
     }
   };
 
-  const marqueeSkills = [...skills, ...skills];
 
   return (
     <div className="app-container">
@@ -91,10 +90,15 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="skill-marquee" aria-label="Skill highlights">
-          <div className="marquee-track">
-            {marqueeSkills.map((skill, index) => (
-              <span key={`${skill}-${index}`} className="skill-pill">{skill}</span>
+        {/* KEY SKILLS: TECHNICAL BLUEPRINT */}
+        <div className="skills-wall blueprint-grid">
+          <div className="skills-wall-header">
+            <h2>Key Skills</h2>
+            <div className="line" />
+          </div>
+          <div className="skills-container">
+            {skills.map((skill, index) => (
+              <span key={`v2-${skill}-${index}`} className="skill-pill">{skill}</span>
             ))}
           </div>
         </div>
@@ -102,7 +106,7 @@ const App: React.FC = () => {
 
       <section id="work" className="content-section light-bg">
         <div className="container">
-          <h2 className="section-title dark-text">MY WORKS</h2>
+          <h2 className="section-title dark-text">MY WORK</h2>
           <div className="projects-grid">
             {projects.map((project, index) => {
               const accentClasses = ['accent-lime', 'accent-blue', 'accent-pink', 'accent-orange'];
@@ -147,6 +151,33 @@ const App: React.FC = () => {
                 </a>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="content-section light-bg">
+        <div className="container">
+          <h2 className="section-title dark-text">CAREER OVERVIEW</h2>
+          <div className="experience-list">
+            {experiences.map((exp, index) => (
+              <div key={index} className="experience-item brutal-card">
+                <div className="exp-dot" />
+                <div className="exp-header">
+                  <div className="exp-role-row">
+                    <h3 className="exp-role">{exp.title}</h3>
+                    <span className="exp-period">{exp.period}</span>
+                  </div>
+                  <div className="exp-meta-row">
+                    <span className="exp-company">{exp.company}</span>
+                  </div>
+                </div>
+                <ul className="exp-desc">
+                  {exp.description.map((desc, i) => (
+                    <li key={i}>{desc}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -230,33 +261,6 @@ const App: React.FC = () => {
               </svg>
               <div className="center-icon">⚡</div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="content-section light-bg">
-        <div className="container">
-          <h2 className="section-title dark-text">EXPERIENCE</h2>
-          <div className="experience-list">
-            {experiences.map((exp, index) => (
-              <div key={index} className="experience-item brutal-card">
-                <div className="exp-dot" />
-                <div className="exp-header">
-                  <div className="exp-role-row">
-                    <h3 className="exp-role">{exp.title}</h3>
-                    <span className="exp-period">{exp.period}</span>
-                  </div>
-                  <div className="exp-meta-row">
-                    <span className="exp-company">{exp.company}</span>
-                  </div>
-                </div>
-                <ul className="exp-desc">
-                  {exp.description.map((desc, i) => (
-                    <li key={i}>{desc}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
       </section>

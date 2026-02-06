@@ -1,7 +1,7 @@
 export const skills = [
     'Flutter', 'React', 'Angular', 'Ionic', 'TypeScript', 'JavaScript',
-    'Node.js', 'NestJS', 'GraphQL', 'REST', 'TypeORM', 'PostgreSQL',
-    'AWS', 'Firebase', 'iOS/Android', 'Agile/Scrum'
+    'Node JS', 'NestJS', 'GraphQL', 'REST', 'TypeORM', 'PostgreSQL',
+    'AWS', 'Firebase', 'iOS/Android', 'Dart'
 ];
 
 export const interests = [
@@ -98,7 +98,7 @@ export const education = {
 export const contact = {
     email: 'junesumar0106@gmail.com',
     linkedin: 'https://www.linkedin.com/in/debsumar/',
-    github: 'https://github.com/debsumar',
+    github: 'https://github.com/debsumar/my-portfolio',
     location: 'Bhubaneswar, Odisha, India',
     phone: '+917814237934'
 };
