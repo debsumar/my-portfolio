@@ -184,26 +184,49 @@ const App: React.FC = () => {
         <div className="container">
           <h2 className="section-title">SELECTED WORKS</h2>
           <div className="projects-grid">
-            {projects.map((project, index) => (
-              <a
-                key={index}
-                href={project.link || '#'}
-                target={project.link ? "_blank" : "_self"}
-                rel="noreferrer"
-                className="project-card brutal-card"
-                style={{ textDecoration: 'none' }}
-              >
-                <div className="project-info">
-                  <h3>{project.title}</h3>
-                  <p className="project-desc">{project.description}</p>
-                  <p className="project-tech">{project.technologies.join(', ')}</p>
-                  <span className="project-year">{project.date}</span>
-                </div>
-                <div className="project-arrow">
-                  <ArrowUpRight size={24} />
-                </div>
-              </a>
-            ))}
+            {projects.map((project, index) => {
+              const accentClasses = ['accent-lime', 'accent-blue', 'accent-pink', 'accent-orange'];
+              const accentClass = accentClasses[index % accentClasses.length];
+
+              return (
+                <a
+                  key={index}
+                  href={project.link || '#'}
+                  target={project.link ? "_blank" : "_blank"}
+                  rel="noreferrer"
+                  className={`project-card brutal-card ${accentClass}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div className="project-accent-bar" />
+                  <div className="project-card-body">
+                    <div className="project-info">
+                      <div className="project-meta-top">
+                        <span className="project-category">{project.category}</span>
+                        <span className="project-status-badge">LIVE ⚡</span>
+                      </div>
+                      <h3>{project.title}</h3>
+                      <p className="project-desc">{project.description}</p>
+
+                      <div className="project-tech-tags">
+                        {project.technologies.slice(0, 4).map((tech, i) => (
+                          <span key={i} className="tech-tag">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="project-footer">
+                      <span className="project-year">{project.date}</span>
+                      <div className="project-arrow-box">
+                        <span className="view-text">VIEW CASE</span>
+                        <div className="project-arrow">
+                          <ArrowUpRight size={18} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -214,10 +237,15 @@ const App: React.FC = () => {
           <div className="experience-list">
             {experiences.map((exp, index) => (
               <div key={index} className="experience-item brutal-card">
+                <div className="exp-dot" />
                 <div className="exp-header">
-                  <h3 className="exp-role">{exp.title}</h3>
-                  <span className="exp-company">{exp.company}</span>
-                  <span className="exp-period">{exp.period}</span>
+                  <div className="exp-role-row">
+                    <h3 className="exp-role">{exp.title}</h3>
+                    <span className="exp-period">{exp.period}</span>
+                  </div>
+                  <div className="exp-meta-row">
+                    <span className="exp-company">{exp.company}</span>
+                  </div>
                 </div>
                 <ul className="exp-desc">
                   {exp.description.map((desc, i) => (

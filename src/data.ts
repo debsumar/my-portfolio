@@ -16,21 +16,24 @@ export const projects = [
         date: 'Dec 2025',
         description: 'DSA questions progress tracker with custom dashboard, progression and streaks.',
         technologies: ['React', 'Vite', 'TypeScript', 'Tailwind'],
-        link: 'https://dsa-handbook.vercel.app/about'
+        link: 'https://dsa-handbook.vercel.app/about',
+        category: 'WEB APP'
     },
     {
         title: 'AI Itinerary Planner',
         date: '2025',
         description: 'Intelligent travel planning with AI-generated itineraries.',
         technologies: ['React', 'Tailwind', 'FastAPI', 'LangGraph', 'Groq'],
-        link: 'https://aiitenerary.vercel.app/'
+        link: 'https://aiitenerary.vercel.app/',
+        category: 'AI & WEB'
     },
     {
         title: 'Random Lottie Generator',
         date: '2021',
         description: 'Flutter app that displays dynamic animations pre-page load; enhanced UI engagement.',
         technologies: ['Flutter', 'Lottie', 'Animation'],
-        link: 'https://github.com/debsumar/Random-lottie-animation-generator'
+        link: 'https://github.com/debsumar/Random-lottie-animation-generator',
+        category: 'MOBILE'
     }
 ];
 
